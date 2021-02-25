@@ -9,6 +9,9 @@ import com.mx1014.serialport.utils.BinaryUtil;
 public class MyListener extends PortListener {
     @Override
     public void onReceive(byte[] data) {
+        if ("57AB0082010085".equalsIgnoreCase(BinaryUtil.Bytes2HexString(data))){
+            System.out.println("串口处理成功");
+        }
         System.out.println(BinaryUtil.Bytes2HexString(data));
 //        String dataStr = new String(data).trim();
 //        System.out.println("串口接收到数据: " + dataStr);

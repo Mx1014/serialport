@@ -41,8 +41,15 @@ public class MyUtil {
                 if (value.matches("(.*)-(.*)")) {
                     String[] arr = value.split("-");
                     toSend(arr[0], arr[1]);
-                } else {
+                } else if(CH9329DictMap.Kb_map.get(value) == null){
                     toSend("Def", value);
+                } else {
+                    String hexStr = CH9329Util.toCH9329Code("Def", value);
+                    byte[] bytes = BinaryUtil.HexString2Bytes(hexStr);
+                    System.out.println(BinaryUtil.Bytes2HexString(bytes));
+                    SerialTool.getInstance().getSerialPortVo().sendData(bytes);
+                    CH9329Util.clear();
+                    System.out.println("串口发送成功");
                 }
             }
         }
