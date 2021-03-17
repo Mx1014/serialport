@@ -1,4 +1,4 @@
-"# serialport" 
+# serialport" 
 java 串口通讯程序 基于RXTX进行串口通讯 与CH9329串口芯片模拟外设键盘输入
 通过mqtt进行数据传输
 
@@ -15,14 +15,16 @@ ls -l /dev
 sudo raspi-config
 找到Interfacing选项，找到serial。
 第一个问题是：would you like a login shell to be accessible  over serial? 选否。
-第二个问题是would you like the serial port hardware to be enabled?选是。
-我用的系统版本是2018-11-13-raspbian-stretch，你的问题顺序可能不一样，看清对应问题选择。
+第二个问题是：would you like the serial port hardware to be enabled? 选是。
 
- 如图所示，serial0（GPIO串口）默认使用的是ttyS0(mini串口)，serial1（蓝牙）使用的是ttyAMA0（硬件串口）。
-如果想使用稳定可靠的硬件串口，就要将树莓派3的硬件串口与mini串口默认映射对换。而这个需求官方也考虑到了，在系统中放了一个实现这个功能的文件。Jessie版本系统中的文件为/boot/overlays/pi3-miniuart-bt-overlay.dtb，stretch版本系统中的文件为/boot/overlays/pi3-miniuart-bt.dtbo。使用该文件发挥功能只需在/boot/config.txt文件末尾添加一行代码。
+serial0（GPIO串口）默认使用的是ttyS0(mini串口)，serial1（蓝牙）使用的是ttyAMA0（硬件串口）。
+如果想使用稳定可靠的硬件串口，就要将树莓派3的硬件串口与mini串口默认映射对换。
+而这个需求官方也考虑到了，在系统中放了一个实现这个功能的文件。
+Jessie版本系统中的文件为/boot/overlays/pi3-miniuart-bt-overlay.dtb，stretch版本系统中的文件为/boot/overlays/pi3-miniuart-bt.dtbo。
+使用该文件发挥功能只需在/boot/config.txt文件末尾添加一行代码。
 打开文件，
 sudo  vim  /boot/config.txt
-在末尾添加这行代码： 
+在末尾添加这行代码：  
 dtoverlay=pi3-miniuart-bt
 修改完以后需要重启，操作完成后再来看下映射关系：
 
